@@ -6,6 +6,8 @@ from profiles_api import models
 from rest_framework.authentication import TokenAuthentication
 from profiles_api import permissions
 from rest_framework import filters
+from rest_framework.authtoken.views import ObtainAuthToken
+from rest_framework.settings import api_settings
 
 from profiles_api import serializers
 
@@ -88,5 +90,9 @@ class UserProfileViewSet(viewsets.ModelViewSet):
     filter_backends = (filters.SearchFilter,)
     # Add search fields to the viewset
     search_fields = ('name', 'email',)
-    
 
+class UserLoginApiView(ObtainAuthToken):
+    """Handle creating user authentication tokens"""
+    # Add renderer classes to the viewset
+    renderer_classes = api_settings.DEFAULT_RENDERER_CLASSES
+    
